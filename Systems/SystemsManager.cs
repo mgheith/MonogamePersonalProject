@@ -40,7 +40,7 @@ namespace MonogamePersonalProject.Systems
         }
 
         /// <summary>
-        /// 
+        /// Observer pattern implementation of Component execution
         /// </summary>
         /// <param name="component">Component to remove</param>
         public static void Unsubscribe(IComponent component) 
@@ -49,11 +49,19 @@ namespace MonogamePersonalProject.Systems
             ComponentCounts[component.GetType()]++;
         }
 
-        public PriorityQueue<ISystem, int> ActiveSystems()
+        /// <summary>
+        /// Returns only the active Systems of the ECS
+        /// </summary>
+        /// <returns></returns>
+        public static PriorityQueue<ISystem, int> ActiveSystems()
         {
             PriorityQueue<ISystem, int> priorityQueue = new PriorityQueue<ISystem, int>();
-            foreach()
-            return 
+            foreach(KeyValuePair<Type, int> type in ComponentCounts)
+            {
+                if(type.Value > 0)
+                    priorityQueue.Enqueue(SystemsDictionary[type.Key], SystemsDictionary[type.Key].Index);
+            }
+            return priorityQueue;
         }
     }
 }
