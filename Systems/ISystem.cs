@@ -24,7 +24,8 @@ namespace MonogamePersonalProject.Systems
         int Index { get; }
 
         /// <summary>
-        /// 
+        /// Components currently listening for updates
+        /// Set by the SystemManager
         /// </summary>
         public List<IComponent> ComponentSubscribers { get; }
 

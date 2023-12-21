@@ -15,6 +15,7 @@ namespace MonogamePersonalProject
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+        private GameEngine _gameEngine;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -39,6 +40,10 @@ namespace MonogamePersonalProject
 
             //Set up Global GraphicsDevice for use
             Globals.graphicsDevice = _graphics.GraphicsDevice;
+
+            //Load new GameEngine
+            _gameEngine = new GameEngine(this);
+
             base.Initialize();
         }
 
@@ -66,6 +71,8 @@ namespace MonogamePersonalProject
         /// <param name="gameTime">Game time (idk)</param>
         protected override void Draw(GameTime gameTime)
         {
+            _gameEngine.Run();
+
             /* Draw all sprites on a new render target */
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);

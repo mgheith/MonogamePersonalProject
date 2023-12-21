@@ -1,7 +1,7 @@
 ﻿using MonogamePersonalProject.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using MonogamePersonalProject.Components;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

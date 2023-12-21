@@ -20,7 +20,7 @@ namespace MonogamePersonalProject.Systems
         public int Index { get { return index; } }
 
         /// <summary>
-        /// 
+        /// List of components subscribed to System
         /// </summary>
         public List<IComponent> ComponentSubscribers { get { return new List<IComponent>(); } }
 
@@ -30,10 +30,14 @@ namespace MonogamePersonalProject.Systems
         /// <param name="engine"></param>
         public void Update(GameEngine engine)
         {
-            foreach(IComponent component in ComponentSubscribers)
-            {
-                component.Execute();
-            }
+            /*
+             * foreach(IComponent component in ComponentSubscribers)
+             * {
+             *     component.Execute();
+             * }
+             * 
+             * Uncomment if you add a function to Transform
+            */
         }
     }
 }

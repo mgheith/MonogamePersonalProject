@@ -17,36 +17,50 @@ namespace MonogamePersonalProject.Systems
         /// <summary>
         /// Initialized Dictionary of Systems
         /// </summary>
-        static Dictionary<Type, ISystem> SystemsDictionary = new Dictionary<Type, ISystem>()
+        static Dictionary<Type, ISystem> ComponentSystemsDictionary = new Dictionary<Type, ISystem>()
         {
             { typeof(SpriteComponent), new SpriteSystem() },
             { typeof(TransformComponent), new TransformSystem()}
         };
 
-        static Dictionary<Type, int> ComponentCounts = new Dictionary<Type, int>()
-        {
-            {typeof(SpriteSystem), 0},
-            {typeof(TransformSystem), 0}
-        };
+        /// <summary>
+        /// Count of all concurrent components
+        ///     KeyValuePair = Type(ISystem), int
+        /// </summary>
+        static Dictionary<Type, int> ComponentCounts = new Dictionary<Type, int>();
 
         /// <summary>
-        /// Subscribe component to proper syste
+        /// Subscribe component to proper system
+        /// Update System Component Count
+        /// If component not in ComponentCounts, add it
         /// </summary>
         /// <param name="component">Component to add</param>
         public static void Subscribe(IComponent component)
         {
-            SystemsDictionary[component.GetType()].ComponentSubscribers.Add(component);
-            ComponentCounts[component.GetType()]++; 
+            Type compType = component.GetType();
+            Type sysType = ComponentSystemsDictionary[compType].GetType();
+            if (!ComponentCounts.ContainsKey(sysType)) 
+            {
+                ComponentCounts.Add(sysType, 0);
+            }
+            ComponentCounts[sysType]++;
         }
 
         /// <summary>
-        /// Observer pattern implementation of Component execution
+        /// Unsubscribe component from proper system
+        /// Update System Component Count
+        /// If Count less than 1, remove it
         /// </summary>
         /// <param name="component">Component to remove</param>
         public static void Unsubscribe(IComponent component) 
         {
-            SystemsDictionary[component.GetType()].ComponentSubscribers.Remove(component);
-            ComponentCounts[component.GetType()]++;
+            Type compType = component.GetType();
+            Type sysType = ComponentSystemsDictionary[compType].GetType();
+            ComponentCounts[sysType]--;
+            if (ComponentCounts[sysType] < 1)
+            {
+                ComponentCounts.Remove(sysType);
+            }
         }
 
         /// <summary>
@@ -55,13 +69,13 @@ namespace MonogamePersonalProject.Systems
         /// <returns></returns>
         public static PriorityQueue<ISystem, int> ActiveSystems()
         {
-            PriorityQueue<ISystem, int> priorityQueue = new PriorityQueue<ISystem, int>();
+            PriorityQueue<ISystem, int> activeSystemsPQ = new PriorityQueue<ISystem, int>();
             foreach(KeyValuePair<Type, int> type in ComponentCounts)
             {
                 if(type.Value > 0)
-                    priorityQueue.Enqueue(SystemsDictionary[type.Key], SystemsDictionary[type.Key].Index);
+                    activeSystemsPQ.Enqueue(ComponentSystemsDictionary[type.Key], ComponentSystemsDictionary[type.Key].Index);
             }
-            return priorityQueue;
+            return activeSystemsPQ;
         }
     }
 }

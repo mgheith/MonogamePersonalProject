@@ -15,6 +15,7 @@ namespace MonogamePersonalProject.Systems
     {
         /// <summary>
         /// Update order of system
+        /// SpriteRendering should happen last
         /// </summary>
         private int index = 10;
 
@@ -23,6 +24,9 @@ namespace MonogamePersonalProject.Systems
         /// </summary>
         public int Index { get { return index; } }
 
+        /// <summary>
+        /// List of all components 
+        /// </summary>
         public List<IComponent> ComponentSubscribers { get; private set; }
 
 

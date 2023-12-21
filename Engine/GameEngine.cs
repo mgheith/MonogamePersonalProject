@@ -12,15 +12,10 @@ using MonogamePersonalProject.Systems;
 namespace MonogamePersonalProject.Engine
 {
     /// <summary>
-    /// An Engine for the ECS. Game demands 
+    /// An Engine for the ECS
     /// </summary>
     internal class GameEngine
-    {
-
-        PriorityQueue<ISystem, int> currentSystemList = new PriorityQueue<ISystem, int>();
-
-        
-        
+    {   
         /// <summary>
         /// GDM for all components to access
         /// </summary>
@@ -41,31 +36,21 @@ namespace MonogamePersonalProject.Engine
             spriteBatch = game.SpriteBatch;
         }
 
-
-        public void AddSystem(IComponent component)
-        {
-
-        }
-
-        public void RemoveSystem(IComponent component) 
-        {
-            
-        }
-
         /// <summary>
         /// Iterate over all systems in currentSystemList. 
         /// </summary>
         public void Run()
         {
-            PriorityQueue<ISystem, int> nextQueue = new PriorityQueue<ISystem, int>();
-            while (currentSystemList.Count > 0)
+            /* Request PQ of active systems from SystemsManager */
+            PriorityQueue<ISystem, int> activeSystems = SystemsManager.ActiveSystems();
+
+            /* Iterate over each system
+               Each system told to update */
+            while (activeSystems.Count > 0)
             {
-                currentSystemList.Peek().Update(this);
-                (ISystem, int) next;
-                currentSystemList.TryDequeue(out next.Item1, out next.Item2);
-                nextQueue.Enqueue(next.Item1, next.Item2);
+                activeSystems.Peek().Update(this);
+                activeSystems.Dequeue();
             }
-            currentSystemList = nextQueue;
         }
 
     }
