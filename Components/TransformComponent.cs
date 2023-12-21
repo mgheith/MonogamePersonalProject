@@ -33,6 +33,22 @@ namespace MonogamePersonalProject.Components
         }
 
         /// <summary>
+        /// Clear out all subscriptions
+        /// </summary>
+        public void Stop()
+        {
+            SystemsManager.Unsubscribe(this);
+        }
+
+        /// <summary>
+        /// Clear all references
+        /// </summary>
+        public void Clear()
+        {
+            Parent = null;
+        }
+
+        /// <summary>
         /// Execution of Transform (nothing to execute)
         /// </summary>
         public void Execute()

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonogamePersonalProject.Components;
 using MonogamePersonalProject.Systems;
+using MonogamePersonalProject.World;
 
 namespace MonogamePersonalProject.Engine
 {
@@ -19,12 +20,16 @@ namespace MonogamePersonalProject.Engine
         /// <summary>
         /// GDM for all components to access
         /// </summary>
-        public readonly GraphicsDeviceManager graphicsDeviceManager;
+        public GraphicsDeviceManager graphicsDeviceManager { get { return game._graphics; } }
 
         /// <summary>
         /// SpriteBatch for all components to access
         /// </summary>
-        public readonly SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch { get { return game.SpriteBatch; } }
+
+        private Game1 game;
+
+        private IWorldSpace currentWorld;
 
         /// <summary>
         /// Constructor for the base engine. Used to get needed values from Game1
@@ -32,8 +37,21 @@ namespace MonogamePersonalProject.Engine
         /// <param name="game">Game1 this comes from</param>
         public GameEngine(Game1 game) 
         {
-            graphicsDeviceManager = game._graphics;
-            spriteBatch = game.SpriteBatch;
+            this.game = game;
+        }
+
+        /// <summary>
+        /// Set the currentWorld IWorldSpace for running
+        /// </summary>
+        /// <param name="worldSpace"></param>
+        public void LoadWorldSpace(IWorldSpace worldSpace) 
+        {
+            currentWorld = worldSpace;
+        }
+
+        public void UnloadCurrentWorldSpace()
+        {
+            currentWorld.EndWorld();
         }
 
         /// <summary>

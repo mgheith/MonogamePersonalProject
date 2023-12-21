@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonogamePersonalProject.Engine;
+using MonogamePersonalProject.World;
 using System;
 
 namespace MonogamePersonalProject
@@ -53,6 +54,7 @@ namespace MonogamePersonalProject
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _gameEngine.LoadWorldSpace(new TestWorldSpace(_gameEngine));
         }
 
         /// <summary>
@@ -71,14 +73,14 @@ namespace MonogamePersonalProject
         /// <param name="gameTime">Game time (idk)</param>
         protected override void Draw(GameTime gameTime)
         {
-            _gameEngine.Run();
+            
 
             /* Draw all sprites on a new render target */
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
-            // Game Drawing Here
+            _gameEngine.Run();
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */

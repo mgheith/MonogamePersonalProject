@@ -18,7 +18,10 @@ namespace MonogamePersonalProject.Engine
         /// </summary>
         List<IComponent> componentList;
         
-        IEntity entity;
+        /// <summary>
+        /// Parent list belongs to
+        /// </summary>
+        public IEntity Parent;
 
         /// <summary>
         /// Constructor for Component List
@@ -26,7 +29,7 @@ namespace MonogamePersonalProject.Engine
         /// <param name="entity">Entity ComponentList belongs to</param>
         public ComponentList(IEntity entity)
         {
-            this.entity = entity;
+            Parent = entity;
             componentList = new List<IComponent>();
         }
 
@@ -42,7 +45,31 @@ namespace MonogamePersonalProject.Engine
                 componentList.Add(component);
                 component.Start();
             }
-            
         }
+
+        /// <summary>
+        /// Component remove method
+        /// If component does not exist, complain
+        /// </summary>
+        /// <param name="component"></param>
+        public void RemoveComponent(IComponent component)
+        { 
+            componentList.Remove(component);
+        }
+
+        /// <summary>
+        /// Clears everything
+        /// </summary>
+        public void Destroy()
+        {
+            while(componentList.Count > 0) 
+            {
+                componentList[0].Clear();
+                componentList.RemoveAt(0);
+            }
+            Parent = null;
+        }
+
+
     }
 }

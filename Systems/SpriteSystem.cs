@@ -29,6 +29,14 @@ namespace MonogamePersonalProject.Systems
         /// </summary>
         public List<IComponent> ComponentSubscribers { get; private set; }
 
+        /// <summary>
+        /// Constructor
+        /// Make ComponentSubscribers
+        /// </summary>
+        public SpriteSystem()
+        {
+            ComponentSubscribers = new List<IComponent>();
+        }
 
         /// <summary>
         /// Update all Sprites

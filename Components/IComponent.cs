@@ -18,9 +18,19 @@ namespace MonogamePersonalProject.Components
         public IEntity Parent { get; }
 
         /// <summary>
-        /// Method for Starting (different from Initiliaze- used for connecting neighboring components)
+        /// Method for Starting (different from initializing- used for connecting neighboring components and subscribing component)
         /// </summary>
         public void Start();
+
+        /// <summary>
+        /// Used primarily to halt Component instruction- Unsubscribe from System
+        /// </summary>
+        public void Stop();
+
+        /// <summary>
+        /// Used to clear any and all references
+        /// </summary>
+        public void Clear();
 
         /// <summary>
         /// Method for executing component.

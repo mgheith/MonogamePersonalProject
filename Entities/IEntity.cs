@@ -59,5 +59,10 @@ namespace MonogamePersonalProject.Entities
         /// <param name="component">Component to remove</param>
         public void RemoveCompnent(IComponent component);
 
+        /// <summary>
+        /// Destroy GameObject, its children, and its components
+        /// </summary>
+        public void Destroy();
+
     }
 }

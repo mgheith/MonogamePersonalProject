@@ -11,6 +11,9 @@ namespace MonogamePersonalProject.Systems
 {
     /// <summary>
     /// System Manager for all Systems
+    ///     Keeps dictionary of all Component-System pairs
+    ///     Keeps another dictionary of all active Component counts
+    ///     Only returns list of components with i > 0 components
     /// </summary>
     internal static class SystemsManager
     {
@@ -27,7 +30,7 @@ namespace MonogamePersonalProject.Systems
         /// Count of all concurrent components
         ///     KeyValuePair = Type(ISystem), int
         /// </summary>
-        static Dictionary<Type, int> ComponentCounts = new Dictionary<Type, int>();
+        static Dictionary<Type, int> SystemComponentCounts = new Dictionary<Type, int>();
 
         /// <summary>
         /// Subscribe component to proper system
@@ -39,11 +42,16 @@ namespace MonogamePersonalProject.Systems
         {
             Type compType = component.GetType();
             Type sysType = ComponentSystemsDictionary[compType].GetType();
-            if (!ComponentCounts.ContainsKey(sysType)) 
+
+            /* Add component to System Subscribers */
+            ComponentSystemsDictionary[compType].ComponentSubscribers.Add(component);
+
+            /* Update SystemComponentCounts */
+            if (!SystemComponentCounts.ContainsKey(sysType)) 
             {
-                ComponentCounts.Add(sysType, 0);
+                SystemComponentCounts.Add(sysType, 0);
             }
-            ComponentCounts[sysType]++;
+            SystemComponentCounts[sysType]++;
         }
 
         /// <summary>
@@ -56,10 +64,10 @@ namespace MonogamePersonalProject.Systems
         {
             Type compType = component.GetType();
             Type sysType = ComponentSystemsDictionary[compType].GetType();
-            ComponentCounts[sysType]--;
-            if (ComponentCounts[sysType] < 1)
+            SystemComponentCounts[sysType]--;
+            if (SystemComponentCounts[sysType] < 1)
             {
-                ComponentCounts.Remove(sysType);
+                SystemComponentCounts.Remove(sysType);
             }
         }
 
@@ -70,10 +78,10 @@ namespace MonogamePersonalProject.Systems
         public static PriorityQueue<ISystem, int> ActiveSystems()
         {
             PriorityQueue<ISystem, int> activeSystemsPQ = new PriorityQueue<ISystem, int>();
-            foreach(KeyValuePair<Type, int> type in ComponentCounts)
+            foreach(KeyValuePair<Type, ISystem> type in ComponentSystemsDictionary)
             {
-                if(type.Value > 0)
-                    activeSystemsPQ.Enqueue(ComponentSystemsDictionary[type.Key], ComponentSystemsDictionary[type.Key].Index);
+                if (SystemComponentCounts.ContainsKey(type.Value.GetType()))
+                    activeSystemsPQ.Enqueue(type.Value, type.Value.Index);
             }
             return activeSystemsPQ;
         }

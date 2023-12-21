@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MonogamePersonalProject.Systems;
+using System.Xml.Serialization;
 
 namespace MonogamePersonalProject.Components
 {
@@ -48,14 +49,18 @@ namespace MonogamePersonalProject.Components
         /// <param name="parent"></param>
         /// <param name="spriteBatch"></param>
         /// <param name="texture"></param>
-        /// <param name="destinationRectangle"></param>
-        public SpriteComponent(IEntity parent, SpriteBatch spriteBatch, Texture2D texture = null, Rectangle destinationRectangle = new Rectangle() ) 
+        /// <param name="sourceRectangle"></param>
+        public SpriteComponent(IEntity parent, SpriteBatch spriteBatch, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) 
         {
             this.parent = parent;
             this.spriteBatch = spriteBatch;
             if( texture == null )
             {
-                texture = new Texture2D(Globals.graphicsDevice, 16, 16);
+                this.texture = new Texture2D(Globals.graphicsDevice, 16, 16);
+            }
+            if ( sourceRectangle.IsEmpty ) 
+            {
+                this.sourceRectangle = new Rectangle(0, 0, 2, 2);
             }
         }
 
@@ -66,6 +71,24 @@ namespace MonogamePersonalProject.Components
         {
             /* Add Component to the System it belongs to */
             SystemsManager.Subscribe(this);
+        }
+
+        /// <summary>
+        /// Called whenever you want to pause
+        /// </summary>
+        public void Stop()
+        {
+            SystemsManager.Unsubscribe(this);
+        }
+
+        /// <summary>
+        /// Clear all references
+        /// </summary>
+        public void Clear()
+        {
+            parent = null;
+            spriteBatch = null;
+            texture = null;
         }
 
         /// <summary>
