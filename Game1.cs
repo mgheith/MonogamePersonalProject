@@ -39,7 +39,7 @@ namespace MonogamePersonalProject
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
 
-            //Set up Global GraphicsDevice for use
+            //Set up Global GraphicsDevice and SpriteBatch for use
             Globals.graphicsDevice = _graphics.GraphicsDevice;
 
             //Load new GameEngine
@@ -54,6 +54,10 @@ namespace MonogamePersonalProject
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //Add spritebatch to Globals
+            Globals.spriteBatch = _spriteBatch;
+
             _gameEngine.LoadWorldSpace(new TestWorldSpace(_gameEngine));
         }
 

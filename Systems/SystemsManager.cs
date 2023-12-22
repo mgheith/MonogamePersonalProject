@@ -1,4 +1,5 @@
 ﻿using MonogamePersonalProject.Components;
+using MonogamePersonalProject.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;

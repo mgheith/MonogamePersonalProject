@@ -10,5 +10,6 @@ namespace MonogamePersonalProject.Engine
     internal static class Globals
     {
         public static GraphicsDevice graphicsDevice;
+        public static SpriteBatch spriteBatch;
     }
 }

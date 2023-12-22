@@ -15,9 +15,9 @@ namespace MonogamePersonalProject.World
         {
             Root = new BasicEntity("Root", null, null);
             IEntity firstEntity = new BasicEntity("FirstEntity");
-            firstEntity.AddCompnent(new TransformComponent(firstEntity));
-            firstEntity.AddCompnent(new SpriteComponent(firstEntity, engine.spriteBatch));
-            firstEntity.AddCompnent(new MoverComponent(firstEntity));
+            firstEntity.AddComponent(typeof(TransformComponent));
+            firstEntity.AddComponent(typeof(SpriteComponent));
+            firstEntity.AddComponent(typeof(MoverComponent));
             Root.AddChild(firstEntity);
         }
         public IEntity Root {get; set;}

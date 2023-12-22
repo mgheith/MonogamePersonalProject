@@ -51,13 +51,19 @@ namespace MonogamePersonalProject.Entities
         /// Add component to Entity
         /// </summary>
         /// <param name="component">Component to add</param>
-        public void AddCompnent(IComponent component);
+        public void AddComponent(IComponent component);
+
+        /// <summary>
+        /// Add new component of Type
+        /// </summary>
+        /// <param name="componentType">Type of Component</param>
+        public void AddComponent(Type componentType);
 
         /// <summary>
         /// Remove component from Entity
         /// </summary>
         /// <param name="component">Component to remove</param>
-        public void RemoveCompnent(IComponent component);
+        public void RemoveComponent(IComponent component);
 
         /// <summary>
         /// Destroy GameObject, its children, and its components

@@ -51,10 +51,10 @@ namespace MonogamePersonalProject.Components
         /// <param name="spriteBatch"></param>
         /// <param name="texture"></param>
         /// <param name="sourceRectangle"></param>
-        public SpriteComponent(IEntity parent, SpriteBatch spriteBatch, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) : base(parent)
+        public SpriteComponent(IEntity parent, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) : base(parent)
         {
             this.parent = parent;
-            this.spriteBatch = spriteBatch;
+            this.spriteBatch = Globals.spriteBatch;
             if( texture == null )
             {
                 this.texture = new Texture2D(Globals.graphicsDevice, 8, 8);
