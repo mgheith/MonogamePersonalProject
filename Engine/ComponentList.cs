@@ -11,13 +11,13 @@ namespace MonogamePersonalProject.Engine
     /// <summary>
     /// Component List extension of List object for ease of use (denying duplicate Component types, 
     /// </summary>
-    internal class ComponentList : List<IComponent>
+    internal class ComponentList
     {
         /// <summary>
         /// The Component List itself
         /// </summary>
         List<IComponent> componentList;
-        
+
         /// <summary>
         /// Parent list belongs to
         /// </summary>
@@ -31,6 +31,25 @@ namespace MonogamePersonalProject.Engine
         {
             Parent = entity;
             componentList = new List<IComponent>();
+        }
+
+        /// <summary>
+        /// Returns the current list of Components
+        /// </summary>
+        /// <returns> List<Components> active</returns>
+        public List<IComponent> GetComponents()
+        {
+            return componentList;
+        }
+
+        /// <summary>
+        /// Returns the fist component of the given component
+        /// </summary>
+        /// <param name="componentType"></param>
+        /// <returns>Matching component</returns>
+        public IComponent GetComponent(Type componentType) 
+        {
+            return componentList.FirstOrDefault(a => a.GetType() == componentType);
         }
 
         /// <summary>

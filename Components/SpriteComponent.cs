@@ -9,13 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using MonogamePersonalProject.Systems;
 using System.Xml.Serialization;
+using System.Runtime.CompilerServices;
 
 namespace MonogamePersonalProject.Components
 {
     /// <summary>
     /// Sprite Component
     /// </summary>
-    internal class SpriteComponent : IComponent
+    internal class SpriteComponent : GenericComponent
     {
         /// <summary>
         /// Parent Entity
@@ -34,9 +35,9 @@ namespace MonogamePersonalProject.Components
         public Texture2D texture;
 
         /// <summary>
-        /// Position to draw from
+        /// TransformComponent to pass Position off of
         /// </summary>
-        public Vector2 position;
+        public TransformComponent transform;
 
         /// <summary>
         /// Rectangle Source
@@ -50,41 +51,54 @@ namespace MonogamePersonalProject.Components
         /// <param name="spriteBatch"></param>
         /// <param name="texture"></param>
         /// <param name="sourceRectangle"></param>
-        public SpriteComponent(IEntity parent, SpriteBatch spriteBatch, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) 
+        public SpriteComponent(IEntity parent, SpriteBatch spriteBatch, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) : base(parent)
         {
             this.parent = parent;
             this.spriteBatch = spriteBatch;
             if( texture == null )
             {
-                this.texture = new Texture2D(Globals.graphicsDevice, 16, 16);
+                this.texture = new Texture2D(Globals.graphicsDevice, 8, 8);
+                this.texture.SetData(MakeDefaultSprite(8, 8));
             }
             if ( sourceRectangle.IsEmpty ) 
             {
-                this.sourceRectangle = new Rectangle(0, 0, 2, 2);
+                this.sourceRectangle = new Rectangle(0, 0, 8, 8);
             }
+            transform = Parent.ComponentList.GetComponent(typeof(TransformComponent)) as TransformComponent;
         }
 
+        #region
         /// <summary>
-        /// This will be called on GameStart
+        /// Makes a default checkerboard pattern
         /// </summary>
-        public void Start()
+        /// <param name="width">Width of board</param>
+        /// <param name="height">Height of board</param>
+        /// <returns></returns>
+        private Color[] MakeDefaultSprite(int width, int height, int size = 2)
         {
-            /* Add Component to the System it belongs to */
-            SystemsManager.Subscribe(this);
-        }
+            Color[] Checkboard = new Color[width * height];
+            Color paint = Color.White;
 
-        /// <summary>
-        /// Called whenever you want to pause
-        /// </summary>
-        public void Stop()
-        {
-            SystemsManager.Unsubscribe(this);
+            for (int pixel = 0; pixel < Checkboard.Count(); pixel++)
+            {
+                if(pixel % 2 == 0)
+                {
+                    Checkboard[pixel] = Color.White;
+                }
+                else
+                {
+                    Checkboard[pixel] = Color.Yellow;
+                }
+            }
+            return Checkboard;
         }
+        #endregion
+
 
         /// <summary>
         /// Clear all references
         /// </summary>
-        public void Clear()
+        public override void Clear()
         {
             parent = null;
             spriteBatch = null;
@@ -94,9 +108,9 @@ namespace MonogamePersonalProject.Components
         /// <summary>
         /// Run the Component
         /// </summary>
-        public void Execute()
+        public override void Execute()
         {
-            spriteBatch.Draw(texture, position, sourceRectangle, Color.White);
+            spriteBatch.Draw(texture, transform.Position, sourceRectangle, Color.White);
         }
     }
 }

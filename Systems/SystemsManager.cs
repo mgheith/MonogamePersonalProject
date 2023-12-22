@@ -23,7 +23,8 @@ namespace MonogamePersonalProject.Systems
         static Dictionary<Type, ISystem> ComponentSystemsDictionary = new Dictionary<Type, ISystem>()
         {
             { typeof(SpriteComponent), new SpriteSystem() },
-            { typeof(TransformComponent), new TransformSystem()}
+            { typeof(TransformComponent), new TransformSystem()},
+            { typeof(MoverComponent), new MoverSystem() },
         };
 
         /// <summary>
