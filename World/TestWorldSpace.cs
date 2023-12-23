@@ -18,6 +18,7 @@ namespace MonogamePersonalProject.World
             firstEntity.AddComponent(typeof(TransformComponent));
             firstEntity.AddComponent(typeof(SpriteComponent));
             firstEntity.AddComponent(typeof(MoverComponent));
+            firstEntity.AddComponent(typeof(EntityControllerComponent));
             Root.AddChild(firstEntity);
         }
         public IEntity Root {get; set;}

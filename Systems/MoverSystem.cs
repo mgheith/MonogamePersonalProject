@@ -15,7 +15,6 @@ namespace MonogamePersonalProject.Systems
         /// </summary>
         public int Index { get { return 5; } }
 
-
         public List<IComponent> ComponentSubscribers { get; set; }
 
         public MoverSystem() 

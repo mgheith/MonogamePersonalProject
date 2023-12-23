@@ -63,11 +63,8 @@ namespace MonogamePersonalProject.Components
         /// <exception cref="NotImplementedException"></exception>
         public override void Execute()
         {
-            Velocity = new Vector2(1, 0);
             TransformComponent.Position += Velocity;
             Velocity = Vector2.Zero;
-        }
-
-        
+        }        
     }
 }

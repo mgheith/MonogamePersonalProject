@@ -23,7 +23,7 @@ namespace MonogamePersonalProject.Entities
         /// <summary>
         /// Public list of components
         /// </summary>
-        public ComponentList ComponentList { get; }
+        public ComponentDictionary ComponentList { get; }
 
         /// <summary>
         /// Parent Entity (if one exists)

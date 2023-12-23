@@ -11,12 +11,12 @@ namespace MonogamePersonalProject.Engine
     /// <summary>
     /// Component List extension of List object for ease of use (denying duplicate Component types, 
     /// </summary>
-    internal class ComponentList
+    internal class ComponentDictionary
     {
         /// <summary>
         /// The Component List itself
         /// </summary>
-        List<IComponent> componentList;
+        Dictionary<Type, IComponent> componentDictionary = new Dictionary<Type, IComponent>();
 
         /// <summary>
         /// Parent list belongs to
@@ -27,10 +27,9 @@ namespace MonogamePersonalProject.Engine
         /// Constructor for Component List
         /// </summary>
         /// <param name="entity">Entity ComponentList belongs to</param>
-        public ComponentList(IEntity entity)
+        public ComponentDictionary(IEntity entity)
         {
             Parent = entity;
-            componentList = new List<IComponent>();
         }
 
         /// <summary>
@@ -39,7 +38,7 @@ namespace MonogamePersonalProject.Engine
         /// <returns> List<Components> active</returns>
         public List<IComponent> GetComponents()
         {
-            return componentList;
+            return componentDictionary.Values.ToList();
         }
 
         /// <summary>
@@ -49,7 +48,7 @@ namespace MonogamePersonalProject.Engine
         /// <returns>Matching component</returns>
         public IComponent GetComponent(Type componentType) 
         {
-            return componentList.FirstOrDefault(a => a.GetType() == componentType);
+            return componentDictionary[componentType];
         }
 
         /// <summary>
@@ -59,9 +58,9 @@ namespace MonogamePersonalProject.Engine
         /// <param name="component">IComponent to add</param>
         public void AddComponent(IComponent component)
         {
-            if(!componentList.Contains(component)) 
+            if(!componentDictionary.ContainsKey(component.GetType()) )
             { 
-                componentList.Add(component);
+                componentDictionary.Add(component.GetType(), component);
                 component.Start();
             }
         }
@@ -73,7 +72,7 @@ namespace MonogamePersonalProject.Engine
         /// <param name="component"></param>
         public void RemoveComponent(IComponent component)
         { 
-            componentList.Remove(component);
+            componentDictionary.Remove(component.GetType());
         }
 
         /// <summary>
@@ -81,11 +80,11 @@ namespace MonogamePersonalProject.Engine
         /// </summary>
         public void Destroy()
         {
-            while(componentList.Count > 0) 
+            foreach(IComponent component in componentDictionary.Values) 
             {
-                componentList[0].Clear();
-                componentList.RemoveAt(0);
+                component.Clear();
             }
+            componentDictionary.Clear();
             Parent = null;
         }
 

@@ -15,7 +15,7 @@ namespace MonogamePersonalProject.Entities
     {
         public string ID { get; set; }
 
-        public ComponentList ComponentList { get; set; }
+        public ComponentDictionary ComponentList { get; set; }
 
         public IEntity Parent { get; set; }
 
@@ -36,7 +36,7 @@ namespace MonogamePersonalProject.Entities
             {
                 Children = new List<IEntity>();
             }
-            ComponentList = new ComponentList(this);
+            ComponentList = new ComponentDictionary(this);
         }
 
         public void AddChild(IEntity entity)
