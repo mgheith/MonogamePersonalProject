@@ -48,7 +48,6 @@ namespace MonogamePersonalProject.Components
         /// Constructor
         /// </summary>
         /// <param name="parent"></param>
-        /// <param name="spriteBatch"></param>
         /// <param name="texture"></param>
         /// <param name="sourceRectangle"></param>
         public SpriteComponent(IEntity parent, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) : base(parent)

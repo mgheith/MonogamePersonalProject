@@ -94,5 +94,13 @@ namespace MonogamePersonalProject.Entities
             }
             ComponentList.Destroy();
         }
+
+        /// <summary>
+        /// Deconstructor
+        /// </summary>
+        ~BasicEntity() 
+        {
+            Destroy();
+        }
     }
 }

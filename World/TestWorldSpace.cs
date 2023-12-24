@@ -1,4 +1,5 @@
-﻿using MonogamePersonalProject.Components;
+﻿using MonogamePersonalProject.Commands;
+using MonogamePersonalProject.Components;
 using MonogamePersonalProject.Engine;
 using MonogamePersonalProject.Entities;
 using System;
@@ -14,13 +15,8 @@ namespace MonogamePersonalProject.World
         public TestWorldSpace(GameEngine engine) 
         {
             Root = new BasicEntity("Root", null, null);
-            IEntity firstEntity = new BasicEntity("FirstEntity");
-            firstEntity.AddComponent(typeof(TransformComponent));
-            firstEntity.AddComponent(typeof(SpriteComponent));
-            firstEntity.AddComponent(typeof(MoverComponent));
-            firstEntity.AddComponent(typeof(EntityControllerComponent));
-            Root.AddChild(firstEntity);
         }
+
         public IEntity Root {get; set;}
 
         public void AddEntity(IEntity entity)

@@ -27,6 +27,7 @@ namespace MonogamePersonalProject.Systems
             { typeof(TransformComponent), new TransformSystem()},
             { typeof(MoverComponent), new MoverSystem() },
             { typeof(EntityControllerComponent), new EntityControllerSystem() },
+            { typeof(DebugControllerComponent), new EntityControllerSystem() }
         };
 
         /// <summary>
