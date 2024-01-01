@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Character>
+	<Texture texture ="ZeldaSheet"/>
+	<SpriteSet>
+		<Animation name="walkingSouth">
+			<Sprite x="1" y="168" width="16" height ="16"/>
+			<Sprite x="18" y="168" width="16" height ="16"/>
+		</Animation>
+		<Animation name="walkingEast">
+			<Sprite x="35" y="168" width="16" height ="16"/>
+			<Sprite x="52" y="168" width="16" height ="16"/>
+		</Animation>
+		<Animation name="walkingNorth">
+			<Sprite x="69" y="151" width="16" height ="16"/>
+			<Sprite x="86" y="151" width="16" height ="16"/>
+		</Animation>
+		<Animation name="attackingSouth">
+			<Sprite x="137" y="168" width="16" height ="16"/>
+		</Animation>
+		<Animation name ="attackingEast">
+			<Sprite x="137" y="151" width="16" height="16"/>
+		</Animation>
+		<Animation name="attackingNorth">
+			<Sprite x="154" y="168" width="16" height="16"/>
+		</Animation>
+		<Animation name ="interact">
+			<Sprite x="154" y="151" width="16" height="16"/>
+		</Animation>
+		<Animation name="obtain">
+			<Sprite x="171" y="151" width="16" height="16"/>
+		</Animation>
+	</SpriteSet>
+</Character>

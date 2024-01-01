@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonogamePersonalProject.Data;
 using MonogamePersonalProject.Engine;
 using MonogamePersonalProject.World;
+using MonogamePersonalProject.XML;
 using System;
 
 namespace MonogamePersonalProject
@@ -41,7 +43,7 @@ namespace MonogamePersonalProject
 
             //Set up Global GraphicsDevice and SpriteBatch for use
             Globals.graphicsDevice = _graphics.GraphicsDevice;
-
+            
             //Load new GameEngine
             _gameEngine = new GameEngine(this);
 
@@ -55,10 +57,16 @@ namespace MonogamePersonalProject
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Load Textures into TextreData
+            TextureData.Textues.Add("ZeldaSheet", Content.Load<Texture2D>("ZeldaSheet"));
+            TextureData.Textues.Add("TileSet", Content.Load<Texture2D>("TileSet"));
+
             //Add spritebatch to Globals
             Globals.spriteBatch = _spriteBatch;
 
+            //Load world space
             _gameEngine.LoadWorldSpace(new TestWorldSpace(_gameEngine));
+
         }
 
         /// <summary>

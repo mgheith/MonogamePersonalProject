@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MonogamePersonalProject.Systems
 {
-    internal class SpriteSystem : ISystem
+    internal class SpriteRenderedSystem : ISystem
     {
         /// <summary>
         /// Update order of system
@@ -33,7 +33,7 @@ namespace MonogamePersonalProject.Systems
         /// Constructor
         /// Make ComponentSubscribers
         /// </summary>
-        public SpriteSystem()
+        public SpriteRenderedSystem()
         {
             ComponentSubscribers = new List<IComponent>();
         }

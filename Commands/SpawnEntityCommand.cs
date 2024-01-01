@@ -22,7 +22,7 @@ namespace MonogamePersonalProject.Commands
         {
             IEntity newEntity = new BasicEntity("NewEntity");
             newEntity.AddComponent(typeof(TransformComponent));
-            newEntity.AddComponent(typeof(SpriteComponent));
+            newEntity.AddComponent(typeof(SpriteRendererComponent));
             newEntity.AddComponent(typeof(MoverComponent));
             newEntity.AddComponent(typeof(EntityControllerComponent));
             Parent.AddChild(newEntity);

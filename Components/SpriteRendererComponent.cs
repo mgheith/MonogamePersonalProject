@@ -16,7 +16,7 @@ namespace MonogamePersonalProject.Components
     /// <summary>
     /// Sprite Component
     /// </summary>
-    internal class SpriteComponent : GenericComponent
+    internal class SpriteRendererComponent : GenericComponent
     {
         /// <summary>
         /// Parent Entity
@@ -50,7 +50,7 @@ namespace MonogamePersonalProject.Components
         /// <param name="parent"></param>
         /// <param name="texture"></param>
         /// <param name="sourceRectangle"></param>
-        public SpriteComponent(IEntity parent, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) : base(parent)
+        public SpriteRendererComponent(IEntity parent, Texture2D texture = null, Rectangle sourceRectangle = new Rectangle() ) : base(parent)
         {
             this.parent = parent;
             this.spriteBatch = Globals.spriteBatch;
@@ -93,6 +93,16 @@ namespace MonogamePersonalProject.Components
         }
         #endregion
 
+        /// <summary>
+        /// Set sprite of SpriteComponent
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="sourceRectangle"></param>
+        public void SetSprite(Texture2D texture, Rectangle sourceRectangle)
+        {
+            this.texture = texture;
+            this.sourceRectangle = sourceRectangle;
+        }
 
         /// <summary>
         /// Clear all references

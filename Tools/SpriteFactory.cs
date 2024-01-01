@@ -8,6 +8,6 @@ namespace MonogamePersonalProject.Tools
 {
     internal static class SpriteFactory
     {
-        private static 
+
     }
 }
